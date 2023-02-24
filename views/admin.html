@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>의료 재무관리 서비스 - 관리자 페이지</h1>
+    <br>
+    <form id="file-upload" action="/admin" method="post" enctype="multipart/form-data">
+        제목 <input type="text" id="title" name="title"> <br><br>
+        사용자 <input type="text" id="user" name="user"> <br><br>
+        <input type="file" name="file" /> <br><br>
+        <button type="submit">업로드</button>
+    </form>
+
+    <br>
+    <h2>명세서 목록</h2>
+    <table border="1">
+        
+        <th>제목</th>
+        <th>작성자</th>
+        <th>파일</th>
+        {% for i in board_list %}
+        <tr>
+            <td>{{ i.title }}</td>
+            <td>{{ i.write }}</td>
+            <td><a href="{{i.file}}" name="fileName", id="fileName">{{i.file}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <br>
+    <h2>재무정리 목록</h2>
+    <table border="1">
+        
+        <th>제목</th>
+        <th>사용자</th>
+        <th>파일</th>
+        {% for i in management_list %}
+        <tr>
+            <td>{{ i.title }}</td>
+            <td>{{ i.user }}</td>
+            <td><a href="{{i.file}}" name="fileName", id="fileName">{{i.file}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

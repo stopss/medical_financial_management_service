@@ -1,0 +1,34 @@
+cgit checkout -b room-branch
+commit
+git push origin room-branch
+
+git checkout demo
+git fetch 
+git pull origin <branch name>-demo
+git merge room-branch
+git push
+
+
+- feat: 새로운 기능 추가 혹은 구현중
+- fix: 이미 있는 코드를 수정했을 때나 버그를 수정했을 때
+- refactor: 코드 리팩토링(하나의 페이지 혹은 하나의 기능을 싹 갈아엎었을때)
+- test: 테스트 코드
+- chore: 패키지 매니저 수정이나 세미콜론 추가, 주석 제거
+    - 개발에 영향이 가지 않는 수정을 했을 때
+
+1. 공지사항 게시판 - 코드 리팩토링, swagger api 추가
+2. 운영 게시판 API 개발
+3. 자유 게시판 API 개발
+4. TypeORM 관계 설정
+5. 게시판 권한 설정 - RolesGuard, Roles Decorator추가
+
+
+
+
+insert into items values('fr_1234', '사과', 20000);
+
+
+
+
++ 유저 정보 조회 시 레이드 기록 없는 경우 예외처리 추가
+

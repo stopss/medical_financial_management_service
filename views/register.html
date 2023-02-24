@@ -8,41 +8,41 @@
     <title>의료 재무관리 서비스</title>
 </head>
 <script>
-    function btn_login() {
+    function btn_register() {
         var email = document.getElementById("email").value;
+        var nickname = document.getElementById("nickname").value;
         var password = document.getElementById("password").value;
+        var passwordchk = document.getElementById("passwordchk").value;
         $.ajax({
             type: "POST",
-            url: "/login",
+            url: "/register",
             data: {
                 email,
+                nickname,
                 password,
+                passwordchk,
             },
             dataType: 'json',
 
             success: function(response) {
                 if(response['success']) {
-                    alert('로그인 성공');
-                    alert(response['token']);
-                    window.location.replace("/board")
+                    alert('회원가입을 축하합니다.');
+                    window.location.replace("/")
                 } else {
-                    alert('실패');
                     alert(response['msg']);
                 }
             }
         })
     }
-
 </script>
 <body>
-    <h1>{{ title }}</h1>
-
+    <h1>의료 재무관리 서비스</h1>
     <div>
         이메일 <input type="text" id="email" name="email"> <br><br>
+        닉네임 <input type="text" id="nickname" name="nickname"> <br><br>
         비밀번호 <input type="password" id="password" name="password"> <br><br>
-        <button id="log-btn" onclick='btn_login()'>로그인</button>
-        <button type="submit" onclick="window.location.href='/register'">회원가입</button>
+        비밀번호확인 <input type="password" id="passwordchk" name="passwordchk"> <br><br>
+        <button id="register-btn" onclick='btn_register()'>회원가입하기</button>
     </div>
-    
 </body>
 </html>

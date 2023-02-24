@@ -1,0 +1,287 @@
+0906 _ 프리온보딩
+
+git-flow
+리드미, 커밋 중요 **
+
+* test case
+curd에 대한 예시 케이스
+하나의 api 기능 구현 후 test case 를 20개씩 만듬
+
+문제/ 원인 / 해결
+-> 블로그에 정리
+
+팀원 유형
+- 본인것만 하려는 사람들 1주 시간에 3일치를 주면 나머지 시간을 
+- 일 자체를 안하려는 사람
+- 너무 간단한 것도 직접 안찾아보고 질문하는 사람
+- 혼자 끙끙 앓다가 일정에 지정을 주는 사람
+- soft) 의견 안내는 사람
+	00 의견은 저는 다 좋습니다 시키는대로 할게요
+
+
+api 란?
+요청을 받아 로직을 수행하고 응답을 내놓는 프로그래밍된 무언가
+web을 통한 제한적 사용(ex. open API, 내 서버)
+ex) 라이브러리화, 코드 복사해서 사용, 
+
+* REST API
+두 가지 url 주소로만 만들어짐
+/users
+/users/:id
+
+post, put, delete, get, patch 를 url 과 같이 구성하면서 만듬
+ex)
+post /users
+get /users
+
+put /users/:id
+delete /users/:id
+get /users/:id
+
+put, patch
+
+---------------------------
+게임 curd 
+- 생성
+POST /games
+
+- 특정게임 불러오기
+GET /games/:id
+
+- 목록 불러오기
+GET /games
+
+- 업데이트
+PUT /games/:id
+
+- 삭제
+DELETE /games/:id
+
+특정 게임 챕터 조회
+GET /games/:id/catpters
+
+------
+request
+
+
+에러 핸들링의 궁극적인 목표는
+5xx 에러는 나오면 안된다.
+5xx 에러가 나오되 서버 에러입니다 잠시후 시도해주세요 와 같은
+핸들링 필요하다.
+
+
+
+status code 에 대해서 readme에 적는 거 좋은듯
+- django rest framework status code 사이트
+https://www.django-rest-framework.org/
+
+---------------
+url 설계시 이름 추천
+- app 이름( admin, seller, user...)
+/api/user/logs
+/api/user/logs/:id
+/api/client/logs
+/api/client/logs/:id
+> app 이름의 경우 단수로 지정한다.(user, client)
+
+- api
+/api/users/
+/api/users/:id
+
+- json
+open api 에 자주 사용됨
+response data type을 알려줌
+/api/json/client/logs
+/api/xml/client/logs
+/api/html/client/logs
+/api/gml/client/logs
+
+-verson
+/api/v1/client/logs > a업체 줬어요
+/api/v2/client/logs > b업체 줬어요
+
+프로젝트에서 고도화 하는 경우
+/api/v1/users/ -> 요구에 대한거
+/api/v2/users/ -> 고도화
+# 설명을 달아야 한다. 첫번째 요구사항은 이거 였는데 
+# 빨리 마무리 되어서 이런이런걸 공부하고 싶었고 적용해봤다.
+# Redis, 권한관리
+
+- 역할 구분
+/api/no-auth/users/
+/api/auth/users
+
+- open
+
+
+=================================
+
+
+** success status code
+201 created - POST
+  가계부가 정상적으로 생성되었습니다.
+  상품이 정상적으로 주문 완료되었습니다.
+  msg: 내역이 정상적으로 등록 되었습니다.
+200 ok - GET/PUT/PATCH/DELETE
+  "OK"
+  00 이 성공적으로 수정(삭제) 되었습니다.
+  or 204 Not Content - PUT/PATCH 의 경우
+    PUT > 200 + {data:...}
+    PUT > 204 + ''
+  200과 204의 차이 - Get 은 항시 데이터를 받아야만 한다. put, delete는 
+
+response
+200 Okay
+data: {
+'123'...
+}
+
+response
+204 No Content
+
+
+- 202 Accepted 수정(삭제) 가능한 아이템 입니다 -> 실행 x -> 자주 사용되지는 않음
+POST /api/user/check
+ > 202 Accepted
+권한이 있는지만 체크 실제 실행되는 건 아닌다.
+
+** Error Status Code
+* drf 가 뭔지 찾아보자 : Django안에서 Restful API 서버를 쉽게 구축할 수 있도록 도와주는 오픈소스 라이브러리
+- 400 Bad Request
+  '제목'은 40자를 초과할 수 없습니다.
+  '작성자명'은 필수 요소 입니다.
+  '진행률'은 100을 초과할 수 없습니다.
+  '-'를 제외한 '비밀번호'를 입력하세요
+
+- 401 Unauthorized
+  인증이 만료되었습니다.
+  자동으로 재발급> 리프레쉬 만료
+  > 고객이 401에러를 마주칠 일은 없다.
+     토큰이 만료된 경우 클라이언트에서 401을 보면 자동으로 refresh 토큰을 재발급
+     refresh API도 만료 > 로그인 페이지 
+     클라이언트에서 처리하게 된다.
+
+- 403 Forbidden
+  권한
+  공지사항은 방장만이 할 수 있습니다.
+  해당 페이지 접근 권한이 없습니다.
+  00 생성 권한이 없습니다. 관리자에게 권한을 요청하세요./문의하세요
+  00 레벨부터 사용가능한 기능입니다. 등업요청하세요/ 권한요청하세요
+  자원이 존재함을 유추  
+
+- 404 Not Found
+  권한이 있고 없고를 아얘 알려주고 싶지 않을 때 (보안적인 문제)인 경우 404를 사용하기도 함
+  존재하지 않는 게시물입니다.
+
+- 408 Request Timeout
+  연결시간이 초과되었습니다. 다시 시도해주세요
+  연결시간이 초과되었습니다. 조회 일자를 짧게 설정하여 다시 시도해주세요
+
+- 500 Server Error
+  서버 에러가 발생하였습니다. 잠시 후 시도하여 주세요. 
+  문구를 하나 정해서 보여준다.
+
+- 504 Gateway Timeout
+  웹 서버 설정에서 자주 발생
+
+클라이언트 타임아웃/ 서버 타임아웃 / 웹서버 타임아웃 Nginx > 일반 요청 10, 파일 30
+
+
+put/delete
+/api/accountbook/logs/:id
+
+delete -> soft delte
+/api/accountbook/logs/:id/delete
+
+put -> soft delete
+/api/acoountbook/logs/:id/recover
+
+put vs patch
+사용자 api 의경우는 patch가 많았고 그 외에는 put을 많이 사용한 거 같다. (by멘토님)
+
+get 
+{
+title: '제목'
+content: '내용'
+author: '홍길동'
+}
+
+put : 자원전체
+{
+title: '제목'
+content: '내용'
+author: '홍길동' -> 바뀌면 안되는 것은 바뀌면 안된다는 메세지 response한다.
+}
+
+patch: 자원전체
+{
+title: '제목'
+content: '내용'
+author: '홍길동'
+}
+
+--------------------------
+
+List API 일반적인 파라미터
+ GET api/users
+- Filtering
+  * match
+  ex) GET api/users?type=A
+       GET api/users?type=A&type=B&type=C
+       GET api/users?types=['A', 'B']
+  * < > >= <=
+  ex) ?start_date=2022-10-01&end_date=2022-10-30
+
+- Searching
+  ex) q, query
+	GET api/users/q=hello
+	GET api/users/query=hello
+Q. query라는 이름을 사용하면 여러개를 검색할 대 하나의 string으로 이어붙여 전달가능한가?
+?q= hello hi world 
+?q = hello,hi,world
+?q = hello&hi&world
+queries = "hello hi world".split(' ')
+-> ['hello', 'hi', 'world']
+-> 규격에 따라 정하면 된다. 
+
+- Orderging(=sorting)
+  ex) 	?order=title
+	?order = -title
+	?order_by=title&order=desc
+	?order_by=title&order_desc=true
+
+- Pagination
+페이지 방식 -> 몇 개씩 나눌 때 몇 번째 페이지
+페이지 1~10번까지
+GET api/users?page=1&page_count=20
+GET api/users?page=2&page_count=20
+GET api/users?page=3&page_count=20
+GET api/users?page=4&page_count=20
+GET api/users?page=5&page_count=20
+GET api/users?page=6&page_count=20
+이번 과제의경우 -> 이렇게 프론트에서 요청한다고 생각하고 구현하면 될 거 같다.
+
+
+index방식 -> 어디부터 어디까지
+GET api/users?start_index=0&end_index=100 (1~100)
+get api/users?start_index=101&end_index=200 (101~200)
+
+offset limit -> 어디부터 100개
+GET api/users?offset=0&limit=10 (1~10)
+GET api/users?offset=10&limit=100 (10~110)
+
+
+** easy commit convention -> 실무적으로는 별로이지만
+같이 규격을 맞춰나가는 지금 사용하기에는 괜찮다.
+
+** github 꾸미기
+** git main으로 merge 하기
+** 기술 스택에 REST API/JWT/DB같은 것도 추가하면 좋을 거 같다.
+
+
+
+
+
+
+
+

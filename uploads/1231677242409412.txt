@@ -1,0 +1,136 @@
+who are you
+- 롤플레잉 추리게임 
+
+
+"범인은 이 안에 있어" 특정 공간에서 일어난 미스터리한 살인 사건! 
+ 
+살인사건 속에서 플레이어들이 직접 사건과 관련된 인물로 분하는 RPG 게임 형식입니다. 
+
+* WHOAR 홈페이지 바로가기
+* Front-End Github
+* Back-End Github
+
+----------------------------
+아키텍처
+
+
+
+
+-----------------------------
+기술적 의사결정
+
+1. bcrypt
+기본 해시 함수(SHA)를 이용하는 것은 빠른 처리속도로 인하여 보안에 취약하기 때문에 사용자의 패스워드를 보호 할 수 없다.
+원하는 만큼 속도를 조절가능한 
+반복횟수를 변수로 지정가능하게 하여 작업량을 조절할 수 있게 해주기 때문에..
+
+공격자의 속도를 늦출 수록 암호화 해독이 어려워 진다.
+
+2. nestjs는 코드를 객체지향적으로 설계하도록 되어 있다. 
+typeorm 은 sql문을 직접 장성하지 않아도, 데이터베이스와의 통신을 간편하게 해젹해주는 라이브러리이다. 
+typeorm 은 typescript로 작성되었기 때문에 nest 프레임워크에서 잘 작동한다.
+typeorm 은 active record 패턴과 data mapper 패턴으로 개발 할 수 있다. 
+
+3. github action
+github action은 github 저장소를 기반으로 소프트웨어 개발 workflow를 자동화 할 수 있는 도구이다.
+다양한 이벤트를 기반으로 직접 원하는 workflow를 만들 수 있다.
+github과 하나로 통일된 환경에서 ci 수행이 가능하다.
+github 작업은 클라우드에서 작동하므로 별도 설치 필요없이 
+
+4. RDS
+RDS는 AWS가 서비스하는 분산 관계형 데이터베이스이다. 
+애플리케이션 내에서 관계형 데이터베이스의 설정, 운영, 스케일링을 단순하게 사용하도록 설계된 클라우드 내에서 동작하는 웹 서비스이다.
+데이터베이스 소프트웨어를 패치, 백업, 시점 복구를 활성화하는 복잡한 관리 프로세스들을 자동으로 관리한다.
+스토리지와 연산 자원들을 스케일링하는 것은 하나의 API 호출로 수행할 수 있다.
+
+
+---------------------------
+트러블 슈팅
+
+
+
+
+
+
+
+
+---------------------------
+주요 기능
+
+1. 채팅 기능
+
+2. 실시간 
+
+
+
+
+
+
+
+
+
+---------------------------
+팀원 소개
+
+
+
+
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwic3ViIjoyLCJuaWNrbmFtZSI6IkRldGVjdGl2ZSIsInNvY2lhbCI6ZmFsc2UsImlhdCI6MTY1OTQ1MTI1NCwiZXhwIjoxNjkxMDA4ODU0fQ.p2YOJShtNUrLyp6yHDlc1shnSOunWiSMG9qTiEF5Vp8
+
+
+
+
+
+
+
+
+
+
+
+ {
+  "email": "test@email.com",
+  "sub": 1,
+  "nickname": "test",
+  "social": false,
+  "iat": 1659512682,
+  "exp": 1691070282
+}
+
+{
+  "email": "test@email.com",
+  "sub": 1,
+  "nickname": "test",
+  "social": false,
+  "iat": 1659512682,
+  "exp": 1691070282
+}
+
+
+1. user
+email : hong@email.com
+nickname: 홍길동
+password: 1234
+
+2.
+email : jeon@email.com
+nickname: 전우치
+password: 1234
+
+3.
+email: det@email.com
+nickname: 나는탐정
+password: 1234
+
+4.
+crime@email.com
+크라임씬
+1234
+
+5.
+whoru@email.com
+WhoRU
+1234
+
+
